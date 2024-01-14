@@ -1,0 +1,26 @@
+@startuml
+participant User as User
+boundary MeterReadingController  as Controller
+control MeterReadingService as Service
+'entity ElectricReadings as Readings
+collections MeterReadingsCollection as ReadingsCollection
+
+User -> Controller : Get Readings for Meter
+
+activate Controller
+
+Controller -> Service : Get Readings for Meter
+Service -> ReadingsCollection : Get Readings for the corresponding Meter
+
+ReadingsCollection -> Service : Return Readings for Meter
+Service -> Controller : Return Readings for Meter
+
+alt found readings
+	Controller -> User: Return Found Readings
+else no readings
+	Controller -> User: Return No Readings Found
+end
+
+deactivate Controller
+
+@enduml

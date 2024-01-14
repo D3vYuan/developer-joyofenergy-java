@@ -1,0 +1,22 @@
+@startuml
+participant User as User
+boundary MeterReadingController  as Controller
+control MeterReadingService as Service
+'entity MeterReadings as Readings
+collections MeterReadingsCollection as ReadingsCollection
+
+User -> Controller : Add Readings to Meter
+
+activate Controller
+Controller -> Controller : Validate Readings
+
+alt valid readings
+	Controller -> Service : Store Readings for Meter
+	Service -> ReadingsCollection : Add Readings to corresponding Meter
+	Controller -> User : Store Readings Successful
+else invalid readings
+	Controller -> User: Store Readings Unsuccessful
+end
+
+deactivate Controller
+@enduml

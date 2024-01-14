@@ -1,0 +1,19 @@
+@startuml
+participant User as User
+boundary PricePlanComparatorController as Controller
+control AccountService as AccountService
+control PricePlanService as PricePlanService
+control MeterReadingService as MeterReadingService
+'entity MeterReadings as Readings
+collections SmartMeterToPricePlanCollections as MeterPricePlanCollection
+
+User -> Controller : Compare Price Plan for Meter
+
+Controller -> AccountService: Get Price Plan for Meter
+AccountService -> MeterPricePlanCollection: Get Price Plan for Meter
+MeterPricePlanCollection > AccountService: Return Price Plan for Meter
+Account Service -> Controller: Return Price Plan for Meter
+
+Controller -> PricePlanService: Get Cost of Each Price Plan for Meter
+
+@enduml

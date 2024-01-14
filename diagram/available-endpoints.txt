@@ -1,0 +1,27 @@
+@startuml
+left to right direction
+skinparam actorStyle awesome
+
+actor :User: as Person0
+package Endpoints {
+	usecase AddStoreReadings as "Add Store Readings"
+	usecase GetStoreReadings as "Get Store Readings"
+	usecase ComparePricePlan as "Compare Price Plans"
+	usecase RecommendedPricePlans as "Recommended Price Plans"
+}
+note "POST /readings/store" as N1
+note "GET /readings/read/<smartMeterId>" as N2
+note "GET /price-plans/compare-all/<smartMeterId>" as N3
+note "GET /price-plans/recommend/<smartMeterId>[?limit=<limit>]" as N4
+
+Person0 --> (AddStoreReadings) : POST
+Person0 --> (GetStoreReadings) : GET
+Person0 --> (ComparePricePlan) : GET
+Person0 --> (RecommendedPricePlans) : GET
+
+AddStoreReadings .. N1
+GetStoreReadings .. N2
+ComparePricePlan .. N3
+RecommendedPricePlans .. N4
+
+@enduml

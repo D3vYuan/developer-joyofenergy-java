@@ -1,0 +1,42 @@
+@startuml
+skinparam actorStyle awesome
+actor :Sarah: as Person0
+actor :Peter: as Person1
+actor :Charlie: as Person2
+actor :Andrea: as Person3
+actor :Alex: as Person4
+
+'package SmartMeters {
+	usecase Meter0 as "smart-meter-0"
+	usecase Meter1 as "smart-meter-1"
+	usecase Meter2 as "smart-meter-2"
+	usecase Meter3 as "smart-meter-3"
+	usecase Meter4 as "smart-meter-4"
+'}
+
+'package EnergyProviders {
+	usecase DrEvilDarkEnergy as "price-plan-0
+	Dr Evil's Dark Energy"
+	usecase TheGreenEco as "price-plan-1
+	The Green Eco"
+	usecase PowerforEveryone as "price-plan-2
+	Power for Everyone"
+'}
+
+
+Person0 --> Meter0 
+Meter0 --> DrEvilDarkEnergy
+
+Person1 --> Meter1
+Meter1 --> TheGreenEco
+
+Person2 --> Meter2
+Meter2 --> DrEvilDarkEnergy
+
+Person3 --> Meter3
+Meter3 --> PowerforEveryone
+
+Person4 --> Meter4
+Meter4 --> TheGreenEco
+
+@enduml
