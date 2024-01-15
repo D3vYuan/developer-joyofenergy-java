@@ -1,31 +1,30 @@
 package uk.tw.energy.domain;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 
 public class HistoricalCost {
-    // { price_plan: xxx,
-    // start_date: xxx,
-    // end_date: xxx,
-    // amount: xxx }
-    private PricePlan pricePlan;
+
+    private String pricePlanId;
     private LocalDate startDate;
     private LocalDate endDate;
     private BigDecimal amount;
 
-    public HistoricalCost(PricePlan pricePlan, LocalDate startDate, LocalDate endDate, BigDecimal amount) {
-        this.pricePlan = pricePlan;
-        this.startDate = startDate;
-        this.endDate = endDate;
+    public HistoricalCost(String pricePlanId, Instant startDateInstant, Instant endDateInstant, BigDecimal amount) {
+        this.pricePlanId = pricePlanId;
+        this.startDate = LocalDate.ofInstant(startDateInstant, ZoneId.systemDefault());
+        this.endDate = LocalDate.ofInstant(endDateInstant, ZoneId.systemDefault());
         this.amount = amount;
     }
 
-    public PricePlan getPricePlan() {
-        return this.pricePlan;
+    public String getPricePlanId() {
+        return this.pricePlanId;
     }
 
-    public void setPricePlan(PricePlan pricePlan) {
-        this.pricePlan = pricePlan;
+    public void setPricePlanId(String pricePlanId) {
+        this.pricePlanId = pricePlanId;
     }
 
     public LocalDate getStartDate() {
