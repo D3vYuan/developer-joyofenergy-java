@@ -2,18 +2,37 @@
 participant User as User
 boundary PricePlanComparatorController as Controller
 control AccountService as AccountService
+collections SmartMeterToPricePlanCollections as MeterPricePlanCollection
+
 control PricePlanService as PricePlanService
 control MeterReadingService as MeterReadingService
 'entity MeterReadings as Readings
-collections SmartMeterToPricePlanCollections as MeterPricePlanCollection
+collections MeterReadingsCollection as ReadingsCollection
 
 User -> Controller : Compare Price Plan for Meter
 
+activate Controller
+
 Controller -> AccountService: Get Price Plan for Meter
 AccountService -> MeterPricePlanCollection: Get Price Plan for Meter
-MeterPricePlanCollection > AccountService: Return Price Plan for Meter
-Account Service -> Controller: Return Price Plan for Meter
+MeterPricePlanCollection -> AccountService: Return Price Plan for Meter
+AccountService -> Controller: Return Price Plan for Meter
 
 Controller -> PricePlanService: Get Cost of Each Price Plan for Meter
+
+activate PricePlanService
+PricePlanService -> MeterReadingService: Get Readings for Meter
+MeterReadingService -> ReadingsCollections: Get Readings for Meter
+
+ReadingsCollections -> MeterReadingService: Return Readings for Meter
+MeterReadingService -> PricePlanService: Return Readings for Meter
+
+PricePlanService -> PricePlanService: Calculate Cost of Each Price Plan for Meter Readings
+deactivate PricePlanService
+
+PricePlanService -> Controller: Return Price Plan and Cost for Meter
+Controller -> User: Return Price Plan and Cost for Meter
+
+deactivate Controller
 
 @enduml

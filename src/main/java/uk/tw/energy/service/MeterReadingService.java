@@ -1,23 +1,14 @@
 package uk.tw.energy.service;
 
-<<<<<<< HEAD
-=======
-import org.springframework.stereotype.Service;
-import uk.tw.energy.domain.ElectricityReading;
-
->>>>>>> 103d11b53412a1320da3d6bd72c43adb501a8312
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-<<<<<<< HEAD
 import org.springframework.stereotype.Service;
 
 import uk.tw.energy.domain.ElectricityReading;
 
-=======
->>>>>>> 103d11b53412a1320da3d6bd72c43adb501a8312
 @Service
 public class MeterReadingService {
 

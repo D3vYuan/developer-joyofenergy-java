@@ -1,7 +1,7 @@
 package uk.tw.energy;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,14 +11,17 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import uk.tw.energy.App;
 import uk.tw.energy.builders.MeterReadingsBuilder;
 import uk.tw.energy.domain.MeterReadings;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = App.class)
 public class EndpointTest {
- 
+
     @Autowired
     private TestRestTemplate restTemplate;
     @Autowired
@@ -49,7 +52,8 @@ public class EndpointTest {
         String smartMeterId = "bob";
         populateMeterReadingsForMeter(smartMeterId);
 
-        ResponseEntity<String> response = restTemplate.getForEntity("/price-plans/compare-all/" + smartMeterId, String.class);
+        ResponseEntity<String> response = restTemplate.getForEntity("/price-plans/compare-all/" + smartMeterId,
+                String.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
@@ -59,8 +63,8 @@ public class EndpointTest {
         String smartMeterId = "bob";
         populateMeterReadingsForMeter(smartMeterId);
 
-        ResponseEntity<String> response =
-                restTemplate.getForEntity("/price-plans/recommend/" + smartMeterId + "?limit=2", String.class);
+        ResponseEntity<String> response = restTemplate
+                .getForEntity("/price-plans/recommend/" + smartMeterId + "?limit=2", String.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 

@@ -1,3 +1,30 @@
 @startuml
+participant User as User
+boundary PricePlanComparatorController as Controller
+control PricePlanService as PricePlanService
+control MeterReadingService as MeterReadingService
+collections MeterReadingsCollection as ReadingsCollection
+collections RecommendationCollections as RecommendationCollection
+
+User -> Controller : Get Recommendation of Price Plans for Meter
+
+activate Controller
+
+Controller -> PricePlanService: Get Cost of Each Price Plan for Meter
+
+activate PricePlanService
+PricePlanService -> MeterReadingService: Get Readings for Meter
+MeterReadingService -> ReadingsCollection: Get Readings for Meter
+
+ReadingsCollection -> MeterReadingService: Return Readings for Meter
+MeterReadingService -> PricePlanService: Return Readings for Meter
+
+PricePlanService -> PricePlanService: Calculate Cost of Each Price Plan for Meter Readings
+deactivate PricePlanService
+
+Controller -> RecommendationCollection: Sort Price Plan in Ascending Order and Limit the return Price Plan based on user limit input
+Controller -> User: Return Recommended Price Plan
+
+deactivate Controller
 
 @enduml
