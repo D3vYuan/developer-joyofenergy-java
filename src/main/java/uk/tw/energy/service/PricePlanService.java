@@ -1,9 +1,5 @@
 package uk.tw.energy.service;
 
-import org.springframework.stereotype.Service;
-import uk.tw.energy.domain.ElectricityReading;
-import uk.tw.energy.domain.PricePlan;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.Duration;
@@ -12,6 +8,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+
+import uk.tw.energy.domain.ElectricityReading;
+import uk.tw.energy.domain.PricePlan;
 
 @Service
 public class PricePlanService {
@@ -24,7 +25,8 @@ public class PricePlanService {
         this.meterReadingService = meterReadingService;
     }
 
-    public Optional<Map<String, BigDecimal>> getConsumptionCostOfElectricityReadingsForEachPricePlan(String smartMeterId) {
+    public Optional<Map<String, BigDecimal>> getConsumptionCostOfElectricityReadingsForEachPricePlan(
+            String smartMeterId) {
         Optional<List<ElectricityReading>> electricityReadings = meterReadingService.getReadings(smartMeterId);
 
         if (!electricityReadings.isPresent()) {
@@ -35,7 +37,7 @@ public class PricePlanService {
                 Collectors.toMap(PricePlan::getPlanName, t -> calculateCost(electricityReadings.get(), t))));
     }
 
-    private BigDecimal calculateCost(List<ElectricityReading> electricityReadings, PricePlan pricePlan) {
+    public BigDecimal calculateCost(List<ElectricityReading> electricityReadings, PricePlan pricePlan) {
         BigDecimal average = calculateAverageReading(electricityReadings);
         BigDecimal timeElapsed = calculateTimeElapsed(electricityReadings);
 
@@ -52,11 +54,11 @@ public class PricePlanService {
     }
 
     private BigDecimal calculateTimeElapsed(List<ElectricityReading> electricityReadings) {
-            ElectricityReading first = electricityReadings.stream()
+        ElectricityReading first = electricityReadings.stream()
                 .min(Comparator.comparing(ElectricityReading::time))
                 .get();
 
-            ElectricityReading last = electricityReadings.stream()
+        ElectricityReading last = electricityReadings.stream()
                 .max(Comparator.comparing(ElectricityReading::time))
                 .get();
 

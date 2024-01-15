@@ -158,6 +158,8 @@ The following is the design for the `recommend price plan` endpoint:
 [self-project-repo]: https://github.com/D3vYuan/developer-joyofenergy-java
 [tw-project-repo]: https://github.com/techops-recsys-lateral-hiring/developer-joyofenergy-java
 
+[self-task]: https://docs.google.com/document/d/1TRL3VtUoCCngkp-LZB8UeOmsxSQM6BgclZ34hXX0F5Y
+
 [ref-fix-gradlew-permission-denied]: https://copyprogramming.com/howto/why-when-i-use-github-actions-ci-for-a-gradle-project-i-face-gradlew-permission-denied-error
 
 [img-users]: ./diagram/use-case.png

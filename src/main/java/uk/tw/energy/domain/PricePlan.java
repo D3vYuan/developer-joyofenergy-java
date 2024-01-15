@@ -12,7 +12,8 @@ public class PricePlan {
     private final BigDecimal unitRate; // unit price per kWh
     private final List<PeakTimeMultiplier> peakTimeMultipliers;
 
-    public PricePlan(String planName, String energySupplier, BigDecimal unitRate, List<PeakTimeMultiplier> peakTimeMultipliers) {
+    public PricePlan(String planName, String energySupplier, BigDecimal unitRate,
+            List<PeakTimeMultiplier> peakTimeMultipliers) {
         this.planName = planName;
         this.energySupplier = energySupplier;
         this.unitRate = unitRate;
@@ -38,7 +39,6 @@ public class PricePlan {
                 .map(multiplier -> unitRate.multiply(multiplier.multiplier))
                 .orElse(unitRate);
     }
-
 
     static class PeakTimeMultiplier {
 
